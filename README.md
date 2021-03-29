@@ -10,4 +10,4 @@ DSRV is participating in the [Agoric Incentivized Testnet](https://validate.agor
 ## Useful links
 - Agoric Incentivized Testnet: https://validate.agoric.com/
 - Explorer: https://testnet.explorer.agoric.net/
-- List of validator (Testnet): https://testnet.explorer.agoric.net/validators
+- List of validator (Agoric Incentivized Testnet): https://testnet.explorer.agoric.net/validators
