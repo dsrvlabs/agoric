@@ -1,5 +1,7 @@
 # Agoric
 
+[How to Setup Agoric Validator](https://github.com/dsrvlabs/agoric/blob/main/Setup_Agoric_Validator.md) - Agoric Incentivized testnet Phase 1 task :)
+ 
 
 ## Agoric incentivised testnet
 
