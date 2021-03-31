@@ -36,12 +36,18 @@ public class WebHookReceiver extends HttpServlet {
 		response.setContentType("text/html; charset=utf-8");
 		HashMap<String, String> p = ServletUtil.paramToHashMapUtf8(request);
 		
+		Discord.sendMsg("Test", "### Start : " + p.toString());
+		
+		/*
+		
 		// request info : fromId, text
 		String body = MyString.getBodyFormHttpRequest(request);	// Telegram 의 WebHook 은 body 에 jsonText 가 담겨서 오기 때문에 body를 읽는다.
 		ObjectMapper jacksonMapper = new ObjectMapper();
 		HashMap map = jacksonMapper.readValue(body, HashMap.class);	// jsonText to HashMap
 		String fromId = ((HashMap)((HashMap)map.get("message")).get("from")).get("id").toString();	// 봇에게 메세지를 보내는사람의 Telegram ID
 		String text = ((HashMap)map.get("message")).get("text").toString();	// 봇에게 보낸 메세지
+		
+		Discord.sendMsg("Test", "### Text : " + text + " : " + fromId);
 		
 		String msg = null;
 		if( text.equals("/start") || text.equals("/help") ) {
@@ -56,8 +62,9 @@ public class WebHookReceiver extends HttpServlet {
 		} else {
 			caseElse(fromId);
 		}
+		*/
 		
-		Discord.sendMsg("Test", "### p : " + p.toString());
+		Discord.sendMsg("Test", "### END");
 		
 		response.setStatus(HttpServletResponse.SC_OK);
 	}
