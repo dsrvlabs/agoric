@@ -51,7 +51,7 @@ public class WebHookReceiver extends HttpServlet {
 		if( cmd.equals("/start") || cmd.equals("/help") ) {
 			caseStartOrHelp(fromId);
 			
-		} else if ( cmd.equals("/block_height") ) {
+		} else if ( cmd.equals("/blockheight") ) {
 			caseBlockHeight(fromId);
 			
 		} else if ( cmd.equals("/list") ) {
