@@ -50,8 +50,11 @@ public class WebHookReceiver extends HttpServlet {
 		} else if ( cmd.equals("/ValidatorList") ) {
 			goSeleniumWorker(fromId, cmd);
 			
-		} else if ( cmd.startsWith("/watch ") ) {
+		} else if ( cmd.startsWith("/agoricv") ) {
 			goSeleniumWorker(fromId, cmd);
+			
+		} else if ( cmd.equals("/Watch") ) {
+			caseWatch(fromId, cmd);
 			
 		} else {
 			caseElse(fromId);
@@ -60,6 +63,15 @@ public class WebHookReceiver extends HttpServlet {
 		//Discord.sendMsg("Test", "### END");
 		
 		response.setStatus(HttpServletResponse.SC_OK);
+	}
+
+	private void caseWatch(String fromId, String cmd) {
+		String msg;
+		msg = "Sorry. This feature is still under development.\n\n";
+		msg += "*Features*\n";
+		msg += "- Check every 3 minutes\n";
+		msg += "- Push alarm in case of failurel\n";
+		TelegramMsgSender.sendMsgToChannel(fromId, msg);
 	}
 
 	private void caseElse(String fromId) {
@@ -93,6 +105,7 @@ public class WebHookReceiver extends HttpServlet {
 		msg += "/ValidatorList - get validator data\n";
 		msg += "/ValidatorAddress - get validator data\n";
 		msg += "/agoricvaloper1ns570lyx8lxevgtva6xdunjp0d35y3z32w3z6c - get validator data\n ";
+		msg += "/Watch - watch node status and push notification\n ";
 		TelegramMsgSender.sendMsgToChannel(fromId, msg);
 	}
 }
