@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.dsrvlabs.common.db.CommonDao;
+import com.dsrvlabs.common.util.Discord;
 import com.dsrvlabs.common.util.ServletUtil;
 
 /**
@@ -46,6 +47,9 @@ public class TestServlet extends HttpServlet {
 		HashMap map = (HashMap)list.get(0);
 		System.out.println(map.get("address"));
 		resultText += map.get("address");
+		
+		
+		Discord.sendMsg("Test", "### p : " + p.toString() + " : " + resultText);
 		
 		response.getWriter().append("##### Served at: " + resultText);
 	}
