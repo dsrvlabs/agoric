@@ -1,6 +1,7 @@
 # Agoric TelegramBot
 
 Agoric TelegramBot provides information from Agoric Network. This provides information from [BigDipper Explorer](https://testnet.explorer.agoric.net/)
+Please use the Telegram link below.
 
 ## Agoric TelegramBot - Features
 - Latest Block Height
