@@ -71,7 +71,7 @@ public class WebHookReceiver extends HttpServlet {
 		msg += "/BlockchainData - get Agoric blockchain data\n";
 		msg += "/ValidatorList - get validator data\n";
 		msg += "/ValidatorAddress - get validator data\n";
-		msg += "/agoricvaloper1ns570lyx8lxevgtva6xdunjp0d35y3z32w3z6c - get validator data\n";
+		msg += "/agoricvaloper1ns570lyx8lxevgtva6xdunjp0d35y3z32w3z6c - get validator data\n ";
 		TelegramMsgSender.sendMsgToChannel(fromId, msg);
 	}
 
