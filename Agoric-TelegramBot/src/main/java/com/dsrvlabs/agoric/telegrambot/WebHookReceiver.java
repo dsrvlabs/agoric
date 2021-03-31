@@ -71,14 +71,13 @@ public class WebHookReceiver extends HttpServlet {
 
 	private void caseElse(String fromId) {
 		String msg;
-		msg = "Sorry. I did not understand your command. Please use the following commans.\n\n";
+		msg = "Sorry. I did not understand your command. Please use the following commans.\n";
 		msg += "*Features*\n";
 		msg += "/start - get help manual\n";
 		msg += "/help - get help manual\n";
 		msg += "/price - get price info\n";
 		msg += "/list - get validator list\n";
 		msg += "/watch 1 - watch the first validator of list. when validator commission rate is chaanged, you'll receive a info\n";
-		msg += "/watch 2 - watch the second validator of list. when validator commission rate is chaanged, you'll receive a info\n";
 		msg += "/watchingList - get my all watching list\n";
 		msg += "/watchingCancel - cancel all watching\n";
 		TelegramMsgSender.sendMsgToChannel(fromId, msg);
