@@ -1,6 +1,6 @@
 # Agoric TelegramBot
 
-Agoric TelegramBot provides information from Agoric Network as Telegram Bot. now, you can check the validators' Node Status.
+Agoric TelegramBot provides information from Agoric Network. This provides information from [BigDipper Explorer](https://testnet.explorer.agoric.net/)
 
 ## Agoric TelegramBot - Features
 - Latest Block Height
