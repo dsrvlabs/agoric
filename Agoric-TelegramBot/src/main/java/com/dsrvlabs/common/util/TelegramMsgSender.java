@@ -26,16 +26,6 @@ public class TelegramMsgSender {
 	 */
 	public static HashMap sendMsgToChannel(String botApiKey, String channelName, String msg) {
 		try {
-			
-			if( defaultBotApiKey == null ) {
-				PropertiesManager propertiesManager = new PropertiesManager("/var/www/agoric-telegrambot.dsrvlabs.net/WEB-INF/classes/Config.properties");
-				defaultBotApiKey = propertiesManager.getKey("defaultBotApiKey");
-			}
-			if( defaultchannelName == null ) {
-				PropertiesManager propertiesManager = new PropertiesManager("/var/www/agoric-telegrambot.dsrvlabs.net/WEB-INF/classes/Config.properties");
-				defaultchannelName = propertiesManager.getKey("defaultchannelName");
-			}
-			
 			msg = URLEncoder.encode(msg, "UTF-8");
 		} catch (UnsupportedEncodingException e) {
 			e.printStackTrace();
@@ -49,15 +39,28 @@ public class TelegramMsgSender {
 	}
 	
 	public static HashMap sendMsgToChannel(String id, String msg) {
+		if( defaultBotApiKey == null ) {
+			PropertiesManager propertiesManager = new PropertiesManager("/var/www/agoric-telegrambot.dsrvlabs.net/WEB-INF/classes/Config.properties");
+			defaultBotApiKey = propertiesManager.getKey("defaultBotApiKey");
+		}
+		
 		return sendMsgToChannel(defaultBotApiKey, id, msg);
 	}
 
 	public static HashMap sendMsgToChannel(String msg) {
+		if( defaultBotApiKey == null ) {
+			PropertiesManager propertiesManager = new PropertiesManager("/var/www/agoric-telegrambot.dsrvlabs.net/WEB-INF/classes/Config.properties");
+			defaultBotApiKey = propertiesManager.getKey("defaultBotApiKey");
+		}
+		if( defaultchannelName == null ) {
+			PropertiesManager propertiesManager = new PropertiesManager("/var/www/agoric-telegrambot.dsrvlabs.net/WEB-INF/classes/Config.properties");
+			defaultchannelName = propertiesManager.getKey("defaultchannelName");
+		}
 		return sendMsgToChannel(defaultBotApiKey, defaultchannelName, msg);
 	}
 
 	public static void main(String[] args) {
-		TelegramMsgSender.sendMsgToChannel("Hello TASD");
+		TelegramMsgSender.sendMsgToChannel("166492352", "Hello TASD");
 
 	}
 
