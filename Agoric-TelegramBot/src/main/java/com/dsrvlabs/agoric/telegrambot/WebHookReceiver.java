@@ -150,7 +150,7 @@ public class WebHookReceiver extends HttpServlet {
 
 	private void caseStartOrHelp(String fromId) {
 		String msg;
-		msg = "Hello, I'm the Agoric TelegramBot!\n\\n";
+		msg = "Hello, I'm the Agoric TelegramBot!\n";
 		msg += "*Features*\n";
 		msg += "/start - get help manual\n";
 		msg += "/block_height - get block height\n";
