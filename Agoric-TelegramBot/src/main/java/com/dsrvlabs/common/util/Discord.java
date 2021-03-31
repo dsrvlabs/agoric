@@ -61,9 +61,9 @@ public class Discord {
 			
 			
 			con.setRequestProperty("Connection", "Keep-Alive");
-			//con.setRequestProperty("Host", "blog.naver.com");
-			//con.setRequestProperty("Referer", "http://blog.naver.com/PostView.nhn?");
-			//con.setRequestProperty("User-Agent", "Mozilla/4.0 (compatible; Win32; WinHttp.WinHttpRequest.5)");
+			con.setRequestProperty("Host", "blog.naver.com");
+			con.setRequestProperty("Referer", "http://blog.naver.com/PostView.nhn?");
+			con.setRequestProperty("User-Agent", "Mozilla/4.0 (compatible; Win32; WinHttp.WinHttpRequest.5)");
 			con.setRequestProperty("Content-Length", "0");
 			
 			con.setConnectTimeout(10000);
