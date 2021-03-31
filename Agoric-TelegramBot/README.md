@@ -11,4 +11,5 @@ Agoric TelegramBot provides information from Agoric Network as Telegram Bot. now
 ## Telegram Link
 - https://t.me/AgoricTelegramBot
 
-
+## Screenshot
+- <img src="https://github.com/dsrvlabs/agoric/blob/telegrambot-dev/Agoric-TelegramBot/doc/screenshot/AgoricTelegramBot-screenshot1.jpg?raw=true" width="50%">
