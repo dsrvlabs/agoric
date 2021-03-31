@@ -38,7 +38,6 @@ public class WebHookReceiver extends HttpServlet {
 		
 		Discord.sendMsg("Test", "### Start : " + p.toString());
 		
-		/*
 		// request info : fromId, text
 		String body = MyString.getBodyFormHttpRequest(request);	// Telegram 의 WebHook 은 body 에 jsonText 가 담겨서 오기 때문에 body를 읽는다.
 		ObjectMapper jacksonMapper = new ObjectMapper();
@@ -61,7 +60,6 @@ public class WebHookReceiver extends HttpServlet {
 		} else {
 			caseElse(fromId);
 		}
-		*/
 		
 		Discord.sendMsg("Test", "### END");
 		
