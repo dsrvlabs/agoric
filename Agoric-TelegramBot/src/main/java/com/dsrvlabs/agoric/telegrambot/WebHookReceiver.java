@@ -64,7 +64,7 @@ public class WebHookReceiver extends HttpServlet {
 
 	private void caseElse(String fromId) {
 		String msg;
-		msg = "Sorry. I did not understand your command. Please use the following commans.\n";
+		msg = "Sorry. I did not understand your command. Please use the following commans.\n\n";
 		msg += "*Features*\n";
 		msg += "/start - get help manual\n";
 		msg += "/help - get help manual\n";
@@ -89,10 +89,10 @@ public class WebHookReceiver extends HttpServlet {
 		msg += "*Features*\n";
 		msg += "/start - get help manual\n";
 		msg += "/help - get help manual\n";
-		msg += "/AgoricData - get Agoric blockchain data\n";
+		msg += "/BlockchainData - get Agoric blockchain data\n";
 		msg += "/ValidatorList - get validator data\n";
 		msg += "/ValidatorAddress - get validator data\n";
-		msg += "/agoricvaloper1ns570lyx8lxevgtva6xdunjp0d35y3z32w3z6c - get validator data\n";
+		msg += "/agoricvaloper1ns570lyx8lxevgtva6xdunjp0d35y3z32w3z6c - get validator data\n ";
 		TelegramMsgSender.sendMsgToChannel(fromId, msg);
 	}
 }
