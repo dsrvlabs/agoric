@@ -17,6 +17,8 @@ public class TelegramMsgSender {
 	private static String defaultBotApiKey = null;
 	private static String defaultchannelName = null;
 	
+	private static String CONFIG_FILE = "/var/www/agoric-telegrambot.dsrvlabs.net/WEB-INF/classes/Config.properties";
+	
 	/**
 	 * 
 	 * @param botApiKey : 88990000094:AAHlqKD-ARChV2VfeFO-NxxxxxxxxXcI
@@ -40,7 +42,7 @@ public class TelegramMsgSender {
 	
 	public static HashMap sendMsgToChannel(String id, String msg) {
 		if( defaultBotApiKey == null ) {
-			PropertiesManager propertiesManager = new PropertiesManager("/var/www/agoric-telegrambot.dsrvlabs.net/WEB-INF/classes/Config.properties");
+			PropertiesManager propertiesManager = new PropertiesManager(CONFIG_FILE);
 			defaultBotApiKey = propertiesManager.getKey("defaultBotApiKey");
 		}
 		
@@ -49,11 +51,11 @@ public class TelegramMsgSender {
 
 	public static HashMap sendMsgToChannel(String msg) {
 		if( defaultBotApiKey == null ) {
-			PropertiesManager propertiesManager = new PropertiesManager("/var/www/agoric-telegrambot.dsrvlabs.net/WEB-INF/classes/Config.properties");
+			PropertiesManager propertiesManager = new PropertiesManager(CONFIG_FILE);
 			defaultBotApiKey = propertiesManager.getKey("defaultBotApiKey");
 		}
 		if( defaultchannelName == null ) {
-			PropertiesManager propertiesManager = new PropertiesManager("/var/www/agoric-telegrambot.dsrvlabs.net/WEB-INF/classes/Config.properties");
+			PropertiesManager propertiesManager = new PropertiesManager(CONFIG_FILE);
 			defaultchannelName = propertiesManager.getKey("defaultchannelName");
 		}
 		return sendMsgToChannel(defaultBotApiKey, defaultchannelName, msg);

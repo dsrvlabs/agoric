@@ -43,19 +43,22 @@ public class WebHookReceiver extends HttpServlet {
 		ObjectMapper jacksonMapper = new ObjectMapper();
 		HashMap map = jacksonMapper.readValue(body, HashMap.class);	// jsonText to HashMap
 		String fromId = ((HashMap)((HashMap)map.get("message")).get("from")).get("id").toString();	// 봇에게 메세지를 보내는사람의 Telegram ID
-		String text = ((HashMap)map.get("message")).get("text").toString();	// 봇에게 보낸 메세지
+		String cmd = ((HashMap)map.get("message")).get("text").toString();	// 봇에게 보낸 메세지
 		
-		Discord.sendMsg("Test", "### Text : " + text + " : " + fromId);
+		Discord.sendMsg("Test", "### Text : " + cmd + " : " + fromId);
 		
 		String msg = null;
-		if( text.equals("/start") || text.equals("/help") ) {
+		if( cmd.equals("/start") || cmd.equals("/help") ) {
 			caseStartOrHelp(fromId);
 			
-		} else if ( text.equals("/list") ) {
+		} else if ( cmd.equals("/block_height") ) {
+			caseBlockHeight(fromId);
+			
+		} else if ( cmd.equals("/list") ) {
 			caseList(fromId);
 			
-		} else if ( text.startsWith("/watch ") ) {
-			caseWatch(fromId, text);
+		} else if ( cmd.startsWith("/watch ") ) {
+			caseWatch(fromId, cmd);
 			
 		} else {
 			caseElse(fromId);
@@ -133,14 +136,24 @@ public class WebHookReceiver extends HttpServlet {
 		
 		TelegramMsgSender.sendMsgToChannel(fromId, msg);
 	}
+	
+
+
+	private void caseBlockHeight(String fromId) {
+		
+		SeleniumWorker worker = new SeleniumWorker(fromId, null);
+		
+		TelegramMsgSender.sendMsgToChannel(fromId, "Start caseBlockHeight");
+		worker.run();
+		TelegramMsgSender.sendMsgToChannel(fromId, "End caseBlockHeight");
+	}
 
 	private void caseStartOrHelp(String fromId) {
 		String msg;
-		msg = "Hello, I'm the LunaWhale.com Bot!\n";
-		msg += "Ask anything about Luna. and Please visit our site. [LunaWhale.com](https://www.lunawhale.com/)\n\n";
+		msg = "Hello, I'm the Agoric TelegramBot!\n\\n";
 		msg += "*Features*\n";
 		msg += "/start - get help manual\n";
-		msg += "/help - get help manual\n";
+		msg += "/block_height - get block height\n";
 		msg += "/price - get price info\n";
 		msg += "/list - get validator list\n";
 		msg += "/watch 1 - watch the first validator of list. when validator commission rate is changed, you'll receive a info\n";
