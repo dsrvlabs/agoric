@@ -34,11 +34,11 @@ public class WebHookReceiver extends HttpServlet {
 		HashMap<String, String> p = ServletUtil.paramToHashMapUtf8(request);
 		
 		// request info : fromId, text
-		String body = MyString.getBodyFormHttpRequest(request);	// Telegram 의 WebHook 은 body 에 jsonText 가 담겨서 오기 때문에 body를 읽는다.
+		String body = MyString.getBodyFormHttpRequest(request);
 		ObjectMapper jacksonMapper = new ObjectMapper();
 		HashMap map = jacksonMapper.readValue(body, HashMap.class);	// jsonText to HashMap
-		String fromId = ((HashMap)((HashMap)map.get("message")).get("from")).get("id").toString();	// 봇에게 메세지를 보내는사람의 Telegram ID
-		String cmd = ((HashMap)map.get("message")).get("text").toString();	// 봇에게 보낸 메세지
+		String fromId = ((HashMap)((HashMap)map.get("message")).get("from")).get("id").toString();
+		String cmd = ((HashMap)map.get("message")).get("text").toString();
 		
 		String msg = null;
 		if( cmd.equals("/start") || cmd.equals("/help") ) {
@@ -78,12 +78,13 @@ public class WebHookReceiver extends HttpServlet {
 		String msg;
 		msg = "Sorry. I did not understand your command. Please use the following commans.\n\n";
 		msg += "*Features*\n";
-		msg += "/start - get help manual\n";
-		msg += "/help - get help manual\n";
-		msg += "/BlockchainData - get Agoric blockchain data\n";
-		msg += "/ValidatorList - get validator data\n";
-		msg += "/ValidatorAddress - get validator data\n";
-		msg += "/agoricvaloper1ns570lyx8lxevgtva6xdunjp0d35y3z32w3z6c - get validator data\n ";
+		msg += "/start - Get help manual\n";
+		msg += "/help - Get help manual\n";
+		msg += "/BlockchainData - Get Agoric blockchain data\n";
+		msg += "/ValidatorList - Get validator data\n";
+		msg += "/ValidatorAddress - Get validator data\n";
+		msg += "/agoricvaloper1ns570lyx8lxevgtva6xdunjp0d35y3z32w3z6c - Sample\n";
+		msg += "/Watch - Watch node status and push notification\n";
 		TelegramMsgSender.sendMsgToChannel(fromId, msg);
 	}
 
@@ -99,13 +100,13 @@ public class WebHookReceiver extends HttpServlet {
 		String msg;
 		msg = "Hello, Welcome to *Agoric TelegramBot!* \n\n";
 		msg += "*Features*\n";
-		msg += "/start - get help manual\n";
-		msg += "/help - get help manual\n";
-		msg += "/BlockchainData - get Agoric blockchain data\n";
-		msg += "/ValidatorList - get validator data\n";
-		msg += "/ValidatorAddress - get validator data\n";
-		msg += "/agoricvaloper1ns570lyx8lxevgtva6xdunjp0d35y3z32w3z6c - get validator data\n ";
-		msg += "/Watch - watch node status and push notification\n ";
+		msg += "/start - Get help manual\n";
+		msg += "/help - Get help manual\n";
+		msg += "/BlockchainData - Get Agoric blockchain data\n";
+		msg += "/ValidatorList - Get validator data\n";
+		msg += "/ValidatorAddress - Get validator data\n";
+		msg += "/agoricvaloper1ns570lyx8lxevgtva6xdunjp0d35y3z32w3z6c - Sample\n";
+		msg += "/Watch - Watch node status and push notification\n";
 		TelegramMsgSender.sendMsgToChannel(fromId, msg);
 	}
 }
