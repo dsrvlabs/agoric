@@ -75,16 +75,12 @@ public class PropertiesManager {
 	 */
 	public static void main(String[] args) throws Exception {
 		
-		//PropertiesManager propertiesManager = new PropertiesManager("./src/com/xxxxxxxx/util/PropertiesManager.properties");
-		PropertiesManager propertiesManager = new PropertiesManager("./src/Config.properties");
+		PropertiesManager propertiesManager = new PropertiesManager("/var/www/agoric-telegrambot.dsrvlabs.net/WEB-INF/classes/Config.properties");
 		
 		Map map = new HashMap();
-		map.put( "id", "Hello");
-		map.put( "age", "21");
-		map.put( "name", "World");
 		
-		propertiesManager.putPropertie(map);
-		
-		System.out.println(propertiesManager.getKey("mykey"));
+		System.out.println(propertiesManager);
+		System.out.println(map);
+		System.out.println(propertiesManager.getKey("CHECK_PERIOD"));
 	}
 }
