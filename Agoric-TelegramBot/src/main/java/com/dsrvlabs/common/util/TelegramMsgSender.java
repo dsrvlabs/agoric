@@ -14,18 +14,28 @@ public class TelegramMsgSender {
 	private static Gson gson = new GsonBuilder().setPrettyPrinting().create();
 	static Logger logger = Logger.getLogger(TelegramMsgSender.class.getName());
 	
-	private static String defaultBotApiKey = "000000000:AAAAA-BBBBB-CCCCC-DDDDD";
-	private static String defaultchannelName = "@xxxxxxxx";
+	private static String defaultBotApiKey = null;
+	private static String defaultchannelName = null;
 	
 	/**
 	 * 
-	 * @param botApiKey : 889904794:AAHlqKD-ARChV2VfeFO-NMUyCEBFMuJ3XcI
-	 * @param channelName : @lunawhale , @jongkwangchanneltest
+	 * @param botApiKey : 88990000094:AAHlqKD-ARChV2VfeFO-NxxxxxxxxXcI
+	 * @param channelName : @xxxxxx , @xxxxxxx
 	 * @param msg : "Hello"
 	 * @return sample : {"ok":true,"result":{"message_id":2,"chat":{"id":-00000000,"title":"My Title","username":"myusername","type":"channel"},"date":1562237619,"text":"Hello"}}
 	 */
 	public static HashMap sendMsgToChannel(String botApiKey, String channelName, String msg) {
 		try {
+			
+			if( defaultBotApiKey == null ) {
+				PropertiesManager propertiesManager = new PropertiesManager("/var/www/agoric-telegrambot.dsrvlabs.net/WEB-INF/classes/Config.properties");
+				defaultBotApiKey = propertiesManager.getKey("defaultBotApiKey");
+			}
+			if( defaultchannelName == null ) {
+				PropertiesManager propertiesManager = new PropertiesManager("/var/www/agoric-telegrambot.dsrvlabs.net/WEB-INF/classes/Config.properties");
+				defaultchannelName = propertiesManager.getKey("defaultchannelName");
+			}
+			
 			msg = URLEncoder.encode(msg, "UTF-8");
 		} catch (UnsupportedEncodingException e) {
 			e.printStackTrace();
@@ -47,8 +57,7 @@ public class TelegramMsgSender {
 	}
 
 	public static void main(String[] args) {
-		HashMap result = TelegramMsgSender.sendMsgToChannel("000000000:AAAAA-BBBBB-CCCCC-DDDDD", "@xxxxxxx", "Hello");
-		System.out.println(result.get("ok"));
+		TelegramMsgSender.sendMsgToChannel("Hello TASD");
 
 	}
 
