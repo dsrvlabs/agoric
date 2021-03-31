@@ -149,15 +149,13 @@ public class WebHookReceiver extends HttpServlet {
 
 	private void caseStartOrHelp(String fromId) {
 		String msg;
-		msg = "Hello, I'm the Agoric TelegramBot!\n";
+		msg = "Hello, I'm the Agoric TelegramBot! \n";
 		msg += "*Features*\n";
 		msg += "/start - get help manual\n";
 		msg += "/block_height - get block height\n";
 		msg += "/price - get price info\n";
 		msg += "/list - get validator list\n";
 		msg += "/watch 1 - watch the first validator of list. when validator commission rate is changed, you'll receive a info\n";
-		msg += "/watch 2 - watch the second validator of list. when validator commission rate is changed, you'll receive a info\n";
-		msg += "/watchingList - get my watching list\n";
 		msg += "/watchingCancel - cancel all watching\n";
 		TelegramMsgSender.sendMsgToChannel(fromId, msg);
 	}
