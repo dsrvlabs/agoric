@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="DbMapper">
+
+
+	
+	<select id="TestSelect" resultType="java.util.HashMap" parameterType="java.util.HashMap">
+<![CDATA[
+select * from MemberList;
+]]>
+	</select>
+
+
+
+
+	
+	<select id="SAMPLE_Select" resultType="java.util.HashMap" parameterType="java.util.HashMap">
+<![CDATA[
+select 1
+]]>
+	</select>
+
+	<insert id="SAMPLE_Insert" parameterType="java.util.HashMap">
+<![CDATA[
+INSERT INTO counter
+( counterDate
+) VALUES (
+  #{aa}
+, #{bb}
+)
+ON DUPLICATE KEY UPDATE
+  aa 	= #{aa}
+, bb	= #{bb}
+]]>
+	</insert>
+
+	<update id="SAMPLE_Update" parameterType="java.util.HashMap">
+<![CDATA[
+UPDATE xxx SET a = 1;
+]]>
+	</update>
+
+	<delete id="SAMPLE_Delete" parameterType="java.util.HashMap">
+<![CDATA[
+delete from xxxxxx
+ where a = #{a}
+]]>
+<if test='LANG == "ko_KR"'> AND b.name = #{bb} </if>
+<if test='LANG == "en_US" or LANG == "fr_FR" or LANG == "zh_CN" or LANG == NULL'> AND b.enName = #{cc} </if>
+ 	</delete>
+</mapper>
