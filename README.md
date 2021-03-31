@@ -11,10 +11,13 @@ DSRV is participating in the [Agoric Incentivized Testnet](https://validate.agor
 
 ## Agoric TelegramBot
 
-Agoric TelegramBot provides information from Agoric Network as Telegram Bot. now, you can check the validators' Node Status.
+[Agoric TelegramBot](https://github.com/dsrvlabs/agoric/tree/telegrambot-dev/Agoric-TelegramBot) provides information from Agoric Network as Telegram Bot. now, you can check the validators' Node Status.
 
 #### Agoric TelegramBot - Features
-- Provides an alarm when there is a problem with my Validator 
+- Latest Block Height
+- Active Validators
+- Online Voting Power
+- Provides an alarm when there is a problem with my Validator (TBA)
 - Validator list (TBA)
 - Account information (TBA)
 
