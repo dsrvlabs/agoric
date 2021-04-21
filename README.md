@@ -21,7 +21,7 @@ DSRV is participating in the [Agoric Incentivized Testnet](https://validate.agor
 - Account information (TBA)
 
 ## Agoric Node Observer
-[Agoric Node Observer](https://github.com/dsrvlabs/agoric/tree/telegrambot-dev/Agoric-Node-Observer) monitoring works with [node_exporter](https://prometheus.io/docs/guides/node-exporter/) and provides discord messages and emergency calls when a problem occurs.
+[Agoric Node Observer](https://github.com/dsrvlabs/agoric/tree/Agoric-Node-Observer) monitoring works with [node_exporter](https://prometheus.io/docs/guides/node-exporter/) and provides discord messages and emergency calls when a problem occurs.
 
 #### Agoric Node Observer - Features
 - Monitoring Memory
