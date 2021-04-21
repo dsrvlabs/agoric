@@ -1,6 +1,4 @@
-# Translation
-
-# Agoric testnet Phase 2 - Digging into Tendermint v0.34.9
+# Agoric Testnet Phase 2 - Digging into Tendermint v0.34.9
 
 Last week, Agoric testnet Phase 2 has been started.
 
