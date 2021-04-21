@@ -17,7 +17,7 @@ Err msg :
 unknown channel 0
 ```
 
-![image](https://raw.githubusercontent.com/dsrvlabs/agoric/main/images/Agoric-Phase2-Tendermint-issue.png)
+![image](https://raw.githubusercontent.com/dsrvlabs/agoric/main/images/Agoric-Phase2-tendermint-issue.png)
 
 The above image shows that the validator's number of peers is changing frequently. It should have constant three peers because the validator is connected to three persistence sentry nodes.
 
