@@ -1,4 +1,15 @@
-## Agoric TelegramBot
+## Agoric TelegramBot (Testnet Phase-3)
+> New feature : Query rewards
+
+#### Command and screenshot
+- Command : <code>/MyReward</code>
+- Sample address : <code>agoric1ns570lyx8lxevgtva6xdunjp0d35y3z36kztxe</code>
+- Screenshot :  
+  <img src="" width="40%">
+
+
+
+## Agoric TelegramBot (Testnet Phase-1)
 Agoric TelegramBot provides information of Agoric Network. This information from [BigDipper Explorer](https://testnet.explorer.agoric.net/)
 
 #### Agoric TelegramBot - Features
@@ -13,4 +24,4 @@ Agoric TelegramBot provides information of Agoric Network. This information from
 - https://t.me/AgoricTelegramBot
 
 ## Screenshot
-- <img src="https://github.com/dsrvlabs/agoric/blob/telegrambot-dev/Agoric-TelegramBot/doc/screenshot/AgoricTelegramBot-screenshot1.jpg?raw=true" width="50%">
+- <img src="https://github.com/dsrvlabs/agoric/blob/telegrambot-dev/Agoric-TelegramBot/doc/screenshot/AgoricTelegramBot-screenshot1.jpg?raw=true" width="40%">
