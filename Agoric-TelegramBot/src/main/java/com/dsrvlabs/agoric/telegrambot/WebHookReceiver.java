@@ -1,6 +1,7 @@
 package com.dsrvlabs.agoric.telegrambot;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -13,7 +14,9 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.log4j.Logger;
 
 import com.dsrvlabs.common.db.CommonDao;
+import com.dsrvlabs.common.util.HttpRequest;
 import com.dsrvlabs.common.util.MyString;
+import com.dsrvlabs.common.util.PropertiesManager;
 import com.dsrvlabs.common.util.ServletUtil;
 import com.dsrvlabs.common.util.TelegramMsgSender;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -23,9 +26,9 @@ import com.google.gson.GsonBuilder;
 @WebServlet("/server/WebHookReceiver")
 public class WebHookReceiver extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	private static String CONFIG_FILE = "/var/www/agoric-telegrambot.dsrvlabs.net/WEB-INF/classes/Config.properties";
 	
-	// create GSON object
-	private Gson gson = new GsonBuilder().setPrettyPrinting().create();	
+	static ObjectMapper mapper = new ObjectMapper();
 	static Logger logger = Logger.getLogger(WebHookReceiver.class.getName()); // Log4J
 	
 	private HashMap<String, HashMap<String, String>> userMap = new HashMap<String, HashMap<String, String>>();
@@ -41,7 +44,7 @@ public class WebHookReceiver extends HttpServlet {
 		ObjectMapper jacksonMapper = new ObjectMapper();
 		HashMap map = jacksonMapper.readValue(body, HashMap.class);	// jsonText to HashMap
 		String fromId = ((HashMap)((HashMap)map.get("message")).get("from")).get("id").toString();	// sample : 166492353
-		String cmd = ((HashMap)map.get("message")).get("text").toString();
+		String cmd = ((HashMap)map.get("message")).get("text").toString();	// sample : agoric1ns570lyx8lxevgtva6xdunjp0d35y3z36kztxe
 		
 		// init userMap
 		logger.debug("### fromId : " + fromId);
@@ -58,9 +61,17 @@ public class WebHookReceiver extends HttpServlet {
 		String menu = userMap.get(fromId).get("menu");
 		
 		logger.debug("### menu : " + menu);
+		logger.debug("### cmd : " + cmd);
+		logger.debug("### cmd.length : " + cmd.length());
 		
 		if( menu.equals("MyReward") ) {
-			commandMyReward(fromId, cmd);
+			
+			if( cmd.startsWith("agoric") && cmd.length() == 45) {	// is it agoric address?
+				commandMyReward_getReward(fromId, cmd);
+			} else {
+				commandMyReward(fromId, cmd);
+				
+			}
 			
 		} else {
 			
@@ -86,6 +97,53 @@ public class WebHookReceiver extends HttpServlet {
 		
 		response.setStatus(HttpServletResponse.SC_OK);
 	}
+
+	private void commandMyReward_getReward(String fromId, String address) {
+		PropertiesManager propertiesManager = new PropertiesManager(CONFIG_FILE);
+		String RPC_SERVER_URL = propertiesManager.getKey("RPC_SERVER_URL");
+		logger.debug(RPC_SERVER_URL);
+		
+		String text = HttpRequest.sendHttpRequest(RPC_SERVER_URL + "/distribution/delegators/"+address+"/rewards", null, "GET");
+		Map resultMap = null;
+		try {
+			resultMap = mapper.readValue(text, Map.class);
+		} catch (Exception e) {
+			e.printStackTrace();
+			logger.error(e.getMessage());
+		}
+		
+		System.out.println("### height : " + resultMap.get("height"));
+		System.out.println("### result : " + resultMap.get("result"));
+		
+		HashMap rewardsMap = (HashMap)resultMap.get("result");
+		ArrayList rewardsList = (ArrayList)rewardsMap.get("rewards");
+		ArrayList totalList = (ArrayList)rewardsMap.get("total");
+		
+		String msg = "";
+		for( int i=0; i<rewardsList.size(); i++ ) {
+			HashMap map = (HashMap)rewardsList.get(i);
+			String validatorAddress = map.get("validator_address").toString();
+			
+			msg += "## Validator : " + validatorAddress + "\n";
+			
+			ArrayList list = (ArrayList)map.get("reward");
+			for( int j=0; j<list.size(); j++ ) {
+				HashMap innerMap = (HashMap)list.get(j);
+				String amountAndUnit = "  - " + innerMap.get("amount").toString() + " " + innerMap.get("denom").toString() + "\n";
+				msg += amountAndUnit;
+			}
+		}
+
+		msg += "## Total\n";
+		for( int i=0; i<totalList.size(); i++ ) {
+			HashMap innerMap = (HashMap)totalList.get(i);
+			String amountAndUnit = "  - " + innerMap.get("amount").toString() + " " + innerMap.get("denom").toString() + "\n";
+			msg += amountAndUnit;
+		}
+		System.out.println("### msg  : " + msg);
+		TelegramMsgSender.sendMsgToChannel(fromId, msg);
+	}
+	
 
 	private void commandMyReward(String fromId, String cmd) {
 		String msg;
