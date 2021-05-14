@@ -202,7 +202,7 @@ public class WebHookReceiver extends HttpServlet {
 	private void caseStartOrHelp(String fromId) {
 		String msg;
 		msg = "Hello, Welcome to *Agoric TelegramBot!*\n";
-		msg += "New feature added */MyReward* !!!\n\n";
+		msg += "(New feature added */MyReward* !!!)\n\n";
 		//msg = "*Currently under construction until today* \n\n";
 		msg += "*Features*\n";
 		msg += "/start - Get help manual\n";
