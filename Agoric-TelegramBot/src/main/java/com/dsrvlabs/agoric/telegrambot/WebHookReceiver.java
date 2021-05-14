@@ -55,7 +55,7 @@ public class WebHookReceiver extends HttpServlet {
 			logger.debug("### 20");
 		}
 		logger.debug("### 30");
-		String menu = userMap.get("fromId").get("menu");
+		String menu = userMap.get(fromId).get("menu");
 		
 		logger.debug("### menu : " + menu);
 		
@@ -100,7 +100,7 @@ public class WebHookReceiver extends HttpServlet {
 		
 		// check address
 		HashMap<String, String> params = new HashMap<String, String>();
-		params.put("fromId", fromId);
+		params.put(fromId, fromId);
 		CommonDao dao = new CommonDao();
 		HashMap dbMap = dao.commonSelectOne("DbMapper.WebHookReceiver_commandMyReward_getAddress", params);
 		logger.debug(dbMap);
