@@ -6,9 +6,9 @@
 
 
 	
-	<select id="TestSelect" resultType="java.util.HashMap" parameterType="java.util.HashMap">
+	<select id="WebHookReceiver_commandMyReward_getAddress" resultType="java.util.HashMap" parameterType="java.util.HashMap">
 <![CDATA[
-select * from MemberList;
+select * from UserAddress where fromId = #{fromId};
 ]]>
 	</select>
 

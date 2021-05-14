@@ -10,8 +10,7 @@ DSRV is participating in the [Agoric Incentivized Testnet](https://validate.agor
 - [DSRV validator](https://testnet.explorer.agoric.net/validator/agoricvaloper1ns570lyx8lxevgtva6xdunjp0d35y3z32w3z6c) in Agoric incentivized testnet
 
 ## Agoric TelegramBot
-
-[Agoric TelegramBot](https://github.com/dsrvlabs/agoric/tree/telegrambot-dev/Agoric-TelegramBot) provides information from Agoric Network as Telegram Bot. now, you can check the validators' Node Status.
+[Agoric TelegramBot](https://github.com/dsrvlabs/agoric/tree/telegrambot-dev/Agoric-TelegramBot) provides information of Agoric Network. This information from [BigDipper Explorer](https://testnet.explorer.agoric.net/)
 
 #### Agoric TelegramBot - Features
 - Latest Block Height
