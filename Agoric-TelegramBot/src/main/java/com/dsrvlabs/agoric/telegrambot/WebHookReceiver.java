@@ -20,8 +20,6 @@ import com.dsrvlabs.common.util.PropertiesManager;
 import com.dsrvlabs.common.util.ServletUtil;
 import com.dsrvlabs.common.util.TelegramMsgSender;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 
 @WebServlet("/server/WebHookReceiver")
 public class WebHookReceiver extends HttpServlet {
@@ -47,22 +45,12 @@ public class WebHookReceiver extends HttpServlet {
 		String cmd = ((HashMap)map.get("message")).get("text").toString();	// sample : agoric1ns570lyx8lxevgtva6xdunjp0d35y3z36kztxe
 		
 		// init userMap
-		logger.debug("### fromId : " + fromId);
-		logger.debug("### userMap.get(\"fromId\") : " + userMap.get(fromId));
 		if( userMap.get(fromId) == null ) {
-			logger.debug("### 10");
 			HashMap<String, String> _map = new HashMap<String, String>();
 			_map.put("menu", "start");
 			userMap.put(fromId, _map);
-			
-			logger.debug("### 20");
 		}
-		logger.debug("### 30");
 		String menu = userMap.get(fromId).get("menu");
-		
-		logger.debug("### menu : " + menu);
-		logger.debug("### cmd : " + cmd);
-		logger.debug("### cmd.length : " + cmd.length());
 		
 		if( menu.equals("MyReward") ) {
 			
@@ -110,7 +98,6 @@ public class WebHookReceiver extends HttpServlet {
 		
 		PropertiesManager propertiesManager = new PropertiesManager(CONFIG_FILE);
 		String RPC_SERVER_URL = propertiesManager.getKey("RPC_SERVER_URL");
-		logger.debug(RPC_SERVER_URL);
 		
 		String text = HttpRequest.sendHttpRequest(RPC_SERVER_URL + "/distribution/delegators/"+address+"/rewards", null, "GET");
 		Map resultMap = null;
@@ -120,9 +107,6 @@ public class WebHookReceiver extends HttpServlet {
 			e.printStackTrace();
 			logger.error(e.getMessage());
 		}
-		
-		System.out.println("### height : " + resultMap.get("height"));
-		System.out.println("### result : " + resultMap.get("result"));
 		
 		HashMap rewardsMap = (HashMap)resultMap.get("result");
 		ArrayList rewardsList = (ArrayList)rewardsMap.get("rewards");
@@ -151,37 +135,26 @@ public class WebHookReceiver extends HttpServlet {
 			String amountAndUnit = "  > " + innerMap.get("amount").toString() + " " + innerMap.get("denom").toString() + "\n";
 			msg += amountAndUnit;
 		}
-		System.out.println("### msg  : " + msg);
 		
 		// reset menu
 		userMap.get(fromId).put("menu", "start");
 		TelegramMsgSender.sendMsgToChannel(fromId, msg);
-		caseElse(fromId);
 	}
 	
 
 	private void commandMyReward(String fromId, String cmd) {
 		String msg;
 		
-		logger.debug("### fromId : " + fromId);
-		logger.debug("### cmd : " + cmd);
-		
 		// set userMap
 		userMap.get(fromId).put("menu", "MyReward");
-		
-		logger.debug("### menu of commandMyReward : " + userMap.get(fromId).get("menu"));
-		
 		
 		// check address
 		HashMap<String, String> params = new HashMap<String, String>();
 		params.put(fromId, fromId);
 		CommonDao dao = new CommonDao();
 		HashMap dbMap = dao.commonSelectOne("DbMapper.WebHookReceiver_commandMyReward_getAddress", params);
-		logger.debug(dbMap);
 		
 		if( dbMap == null ) {
-			logger.debug("### dbMap == null : " + dbMap == null);
-			
 			msg = "What is your Agoric address?\n";
 			msg += "(Sample: agoric1ns570lyx8lxevgtva6xdunjp0d35y3z36kztxe)";
 			TelegramMsgSender.sendMsgToChannel(fromId, msg);
@@ -228,8 +201,9 @@ public class WebHookReceiver extends HttpServlet {
 
 	private void caseStartOrHelp(String fromId) {
 		String msg;
-		//msg = "Hello, Welcome to *Agoric TelegramBot!* \n\n";
-		msg = "*Currently under construction until today* \n\n";
+		msg = "Hello, Welcome to *Agoric TelegramBot!*\n";
+		msg += "New feature added */MyReward* !!!\n\n";
+		//msg = "*Currently under construction until today* \n\n";
 		msg += "*Features*\n";
 		msg += "/start - Get help manual\n";
 		msg += "/help - Get help manual\n";
