@@ -44,12 +44,20 @@ public class WebHookReceiver extends HttpServlet {
 		String cmd = ((HashMap)map.get("message")).get("text").toString();
 		
 		// init userMap
+		logger.debug("### fromId : " + fromId);
+		logger.debug("### userMap.get(\"fromId\") : " + userMap.get("fromId"));
 		if( userMap.get("fromId") == null ) {
+			logger.debug("### 10");
 			HashMap<String, String> _map = new HashMap<String, String>();
 			_map.put("menu", "start");
-			userMap.put(fromId, _map);			
+			userMap.put(fromId, _map);
+			
+			logger.debug("### 20");
 		}
+		logger.debug("### 30");
 		String menu = userMap.get("fromId").get("menu");
+		
+		logger.debug("### menu : " + menu);
 		
 		if( menu.equals("MyReward") ) {
 			commandMyReward(fromId, cmd);
@@ -86,6 +94,9 @@ public class WebHookReceiver extends HttpServlet {
 		
 		// set userMap
 		userMap.get(fromId).put("menu", "MyReward");
+		
+		logger.debug("### menu of commandMyReward : " + userMap.get(fromId).get("menu"));
+		
 		
 		// check address
 		HashMap<String, String> params = new HashMap<String, String>();
