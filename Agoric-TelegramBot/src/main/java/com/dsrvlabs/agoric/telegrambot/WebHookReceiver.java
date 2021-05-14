@@ -182,7 +182,8 @@ public class WebHookReceiver extends HttpServlet {
 		if( dbMap == null ) {
 			logger.debug("### dbMap == null : " + dbMap == null);
 			
-			msg = "What is your Agoric address?\n\n";
+			msg = "What is your Agoric address?\n";
+			msg += "(Sample: agoric1ns570lyx8lxevgtva6xdunjp0d35y3z36kztxe)";
 			TelegramMsgSender.sendMsgToChannel(fromId, msg);
 		} else {
 			
@@ -203,8 +204,8 @@ public class WebHookReceiver extends HttpServlet {
 
 	private void caseElse(String fromId) {
 		String msg;
-		//msg = "Sorry. I did not understand your command. Please use the following commans.\n\n";
-		msg = "";
+		msg = "Sorry. I did not understand your command. Please use the following commans.\n\n";
+		//msg = "";
 		msg += "*Features*\n";
 		msg += "/start - Get help manual\n";
 		msg += "/help - Get help manual\n";
