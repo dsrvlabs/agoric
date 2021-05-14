@@ -49,9 +49,9 @@ public class WebHookReceiver extends HttpServlet {
 			_map.put("menu", "start");
 			userMap.put(fromId, _map);			
 		}
-		String userMenu = userMap.get("fromId").get("menu");
+		String menu = userMap.get("fromId").get("menu");
 		
-		if( userMenu.equals("MyReward") ) {
+		if( menu.equals("MyReward") ) {
 			commandMyReward(fromId, cmd);
 			
 		} else {
