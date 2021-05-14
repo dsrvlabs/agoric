@@ -119,12 +119,13 @@ public class WebHookReceiver extends HttpServlet {
 		ArrayList rewardsList = (ArrayList)rewardsMap.get("rewards");
 		ArrayList totalList = (ArrayList)rewardsMap.get("total");
 		
-		String msg = "## Validator List\n";
+		String msg = "Your address is ["+address+"](https://testnet.explorer.agoric.net/account/"+address+")\n\n";
+		msg += "## Validator List\n";
 		for( int i=0; i<rewardsList.size(); i++ ) {
 			HashMap map = (HashMap)rewardsList.get(i);
 			String validatorAddress = map.get("validator_address").toString();
 			
-			msg += "- " + validatorAddress + "\n";
+			msg += "" + validatorAddress + "\n";
 			
 			ArrayList list = (ArrayList)map.get("reward");
 			for( int j=0; j<list.size(); j++ ) {
@@ -142,7 +143,13 @@ public class WebHookReceiver extends HttpServlet {
 			msg += amountAndUnit;
 		}
 		System.out.println("### msg  : " + msg);
+		
+		// reset menu
+		userMap.get(fromId).put("menu", "start");	
+		
 		TelegramMsgSender.sendMsgToChannel(fromId, msg);
+		
+		
 	}
 	
 
