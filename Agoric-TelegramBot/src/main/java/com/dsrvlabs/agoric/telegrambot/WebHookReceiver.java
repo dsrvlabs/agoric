@@ -104,6 +104,7 @@ public class WebHookReceiver extends HttpServlet {
 		CommonDao dao = new CommonDao();
 		HashMap dbMap = dao.commonSelectOne("DbMapper.WebHookReceiver_commandMyReward_getAddress", params);
 		logger.debug(dbMap);
+		logger.debug("### isEmpty : " + dbMap.isEmpty());
 		
 		
 		String msg;
@@ -153,11 +154,12 @@ public class WebHookReceiver extends HttpServlet {
 		msg += "*Features*\n";
 		msg += "/start - Get help manual\n";
 		msg += "/help - Get help manual\n";
+		msg += "/MyReward - Get unclaimed reward\n";
 		msg += "/BlockchainData - Get Agoric blockchain data\n";
 		msg += "/ValidatorList - Get validator data\n";
 		msg += "/ValidatorAddress - Get validator data\n";
 		msg += "/agoricvaloper1ns570lyx8lxevgtva6xdunjp0d35y3z32w3z6c - Sample\n";
-		msg += "/Watch - Watch node status and push notification\n";
+		//msg += "/Watch - Watch node status and push notification\n";
 		TelegramMsgSender.sendMsgToChannel(fromId, msg);
 	}
 }
