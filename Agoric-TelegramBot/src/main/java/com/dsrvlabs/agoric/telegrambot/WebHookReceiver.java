@@ -119,25 +119,26 @@ public class WebHookReceiver extends HttpServlet {
 		ArrayList rewardsList = (ArrayList)rewardsMap.get("rewards");
 		ArrayList totalList = (ArrayList)rewardsMap.get("total");
 		
-		String msg = "";
+		String msg = "## Validator List\n";
 		for( int i=0; i<rewardsList.size(); i++ ) {
 			HashMap map = (HashMap)rewardsList.get(i);
 			String validatorAddress = map.get("validator_address").toString();
 			
-			msg += "## Validator : " + validatorAddress + "\n";
+			msg += "- " + validatorAddress + "\n";
 			
 			ArrayList list = (ArrayList)map.get("reward");
 			for( int j=0; j<list.size(); j++ ) {
 				HashMap innerMap = (HashMap)list.get(j);
-				String amountAndUnit = "  - " + innerMap.get("amount").toString() + " " + innerMap.get("denom").toString() + "\n";
+				String amountAndUnit = "  > " + innerMap.get("amount").toString() + " " + innerMap.get("denom").toString() + "\n";
 				msg += amountAndUnit;
 			}
 		}
-
+		
+		msg += "\n";
 		msg += "## Total\n";
 		for( int i=0; i<totalList.size(); i++ ) {
 			HashMap innerMap = (HashMap)totalList.get(i);
-			String amountAndUnit = "  - " + innerMap.get("amount").toString() + " " + innerMap.get("denom").toString() + "\n";
+			String amountAndUnit = "  > " + innerMap.get("amount").toString() + " " + innerMap.get("denom").toString() + "\n";
 			msg += amountAndUnit;
 		}
 		System.out.println("### msg  : " + msg);
