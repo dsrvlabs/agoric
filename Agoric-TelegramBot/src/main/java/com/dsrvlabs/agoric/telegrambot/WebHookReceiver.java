@@ -125,7 +125,7 @@ public class WebHookReceiver extends HttpServlet {
 			HashMap map = (HashMap)rewardsList.get(i);
 			String validatorAddress = map.get("validator_address").toString();
 			
-			msg += "[" + validatorAddress.substring(0, 14) + "](https://testnet.explorer.agoric.net/validator/"+address+")\n";
+			msg += "[" + validatorAddress.substring(0, 20) + "...](https://testnet.explorer.agoric.net/validator/"+address+")\n";
 			
 			ArrayList list = (ArrayList)map.get("reward");
 			for( int j=0; j<list.size(); j++ ) {
