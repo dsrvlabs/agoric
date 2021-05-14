@@ -40,13 +40,13 @@ public class WebHookReceiver extends HttpServlet {
 		String body = MyString.getBodyFormHttpRequest(request);
 		ObjectMapper jacksonMapper = new ObjectMapper();
 		HashMap map = jacksonMapper.readValue(body, HashMap.class);	// jsonText to HashMap
-		String fromId = ((HashMap)((HashMap)map.get("message")).get("from")).get("id").toString();
+		String fromId = ((HashMap)((HashMap)map.get("message")).get("from")).get("id").toString();	// sample : 166492353
 		String cmd = ((HashMap)map.get("message")).get("text").toString();
 		
 		// init userMap
 		logger.debug("### fromId : " + fromId);
-		logger.debug("### userMap.get(\"fromId\") : " + userMap.get("fromId"));
-		if( userMap.get("fromId") == null ) {
+		logger.debug("### userMap.get(\"fromId\") : " + userMap.get(fromId));
+		if( userMap.get(fromId) == null ) {
 			logger.debug("### 10");
 			HashMap<String, String> _map = new HashMap<String, String>();
 			_map.put("menu", "start");
