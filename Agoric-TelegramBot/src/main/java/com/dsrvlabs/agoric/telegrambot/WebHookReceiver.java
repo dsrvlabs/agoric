@@ -2,6 +2,7 @@ package com.dsrvlabs.agoric.telegrambot;
 
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -11,7 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
 
-import com.dsrvlabs.common.util.Discord;
+import com.dsrvlabs.common.db.CommonDao;
 import com.dsrvlabs.common.util.MyString;
 import com.dsrvlabs.common.util.ServletUtil;
 import com.dsrvlabs.common.util.TelegramMsgSender;
@@ -26,6 +27,8 @@ public class WebHookReceiver extends HttpServlet {
 	// create GSON object
 	private Gson gson = new GsonBuilder().setPrettyPrinting().create();	
 	static Logger logger = Logger.getLogger(WebHookReceiver.class.getName()); // Log4J
+	
+	private HashMap<String, HashMap<String, String>> userMap = new HashMap<String, HashMap<String, String>>();
        
 	public void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
@@ -40,29 +43,64 @@ public class WebHookReceiver extends HttpServlet {
 		String fromId = ((HashMap)((HashMap)map.get("message")).get("from")).get("id").toString();
 		String cmd = ((HashMap)map.get("message")).get("text").toString();
 		
-		String msg = null;
-		if( cmd.equals("/start") || cmd.equals("/help") ) {
-			caseStartOrHelp(fromId);
-			
-		} else if ( cmd.equals("/BlockchainData") ) {
-			goSeleniumWorker(fromId, cmd);
-			
-		} else if ( cmd.equals("/ValidatorList") ) {
-			goSeleniumWorker(fromId, cmd);
-			
-		} else if ( cmd.startsWith("/agoricv") ) {
-			goSeleniumWorker(fromId, cmd);
-			
-		} else if ( cmd.equals("/Watch") ) {
-			caseWatch(fromId, cmd);
+		// init userMap
+		if( userMap.get("fromId") == null ) {
+			HashMap<String, String> _map = new HashMap<String, String>();
+			_map.put("menu", "start");
+			userMap.put(fromId, _map);			
+		}
+		String userMenu = userMap.get("fromId").get("menu");
+		
+		if( userMenu.equals("MyReward") ) {
+			commandMyReward(fromId, cmd);
 			
 		} else {
-			caseElse(fromId);
+			
+			if( cmd.equals("/start") || cmd.equals("/help") ) {
+				caseStartOrHelp(fromId);
+				
+			} else if ( cmd.equals("/MyReward") ) {
+				commandMyReward(fromId, cmd);
+				
+			} else if ( cmd.equals("/BlockchainData") ) {
+				goSeleniumWorker(fromId, cmd);
+				
+			} else if ( cmd.equals("/ValidatorList") ) {
+				goSeleniumWorker(fromId, cmd);
+				
+			} else if ( cmd.startsWith("/agoricv") ) {
+				goSeleniumWorker(fromId, cmd);
+				
+			} else {
+				caseElse(fromId);
+			}
 		}
 		
-		//Discord.sendMsg("Test", "### END");
-		
 		response.setStatus(HttpServletResponse.SC_OK);
+	}
+
+	private void commandMyReward(String fromId, String cmd) {
+		
+		logger.debug("### fromId : " + fromId);
+		logger.debug("### cmd : " + cmd);
+		
+		// set userMap
+		userMap.get(fromId).put("menu", "MyReward");
+		
+		// check address
+		HashMap<String, String> params = new HashMap<String, String>();
+		params.put("fromId", fromId);
+		CommonDao dao = new CommonDao();
+		HashMap dbMap = dao.commonSelectOne("DbMapper.WebHookReceiver_commandMyReward_getAddress", params);
+		logger.debug(dbMap);
+		
+		
+		String msg;
+		msg = "commandMyReward.\n\n";
+		msg += "*Hello*\n";
+		msg += "- fromId : " + fromId + "\n";
+		msg += "- cmd : " + cmd + "\n";
+		TelegramMsgSender.sendMsgToChannel(fromId, msg);
 	}
 
 	private void caseWatch(String fromId, String cmd) {
@@ -80,11 +118,12 @@ public class WebHookReceiver extends HttpServlet {
 		msg += "*Features*\n";
 		msg += "/start - Get help manual\n";
 		msg += "/help - Get help manual\n";
+		msg += "/MyReward - Get unclaimed reward\n";
 		msg += "/BlockchainData - Get Agoric blockchain data\n";
 		msg += "/ValidatorList - Get validator data\n";
 		msg += "/ValidatorAddress - Get validator data\n";
 		msg += "/agoricvaloper1ns570lyx8lxevgtva6xdunjp0d35y3z32w3z6c - Sample\n";
-		msg += "/Watch - Watch node status and push notification\n";
+		//msg += "/Watch - Watch node status and push notification\n";
 		TelegramMsgSender.sendMsgToChannel(fromId, msg);
 	}
 
