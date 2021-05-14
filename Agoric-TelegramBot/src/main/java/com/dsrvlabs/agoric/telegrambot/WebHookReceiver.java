@@ -88,6 +88,7 @@ public class WebHookReceiver extends HttpServlet {
 	}
 
 	private void commandMyReward(String fromId, String cmd) {
+		String msg;
 		
 		logger.debug("### fromId : " + fromId);
 		logger.debug("### cmd : " + cmd);
@@ -104,15 +105,20 @@ public class WebHookReceiver extends HttpServlet {
 		CommonDao dao = new CommonDao();
 		HashMap dbMap = dao.commonSelectOne("DbMapper.WebHookReceiver_commandMyReward_getAddress", params);
 		logger.debug(dbMap);
-		logger.debug("### isEmpty : " + dbMap.isEmpty());
 		
+		if( dbMap == null ) {
+			logger.debug("### dbMap == null : " + dbMap == null);
+			
+			msg = "What is you Agoric address?\n\n";
+			TelegramMsgSender.sendMsgToChannel(fromId, msg);
+		} else {
+
+			
+			msg = "Your Address is .\n\n";
+			msg += dbMap.get("address");
+			TelegramMsgSender.sendMsgToChannel(fromId, msg);
+		}
 		
-		String msg;
-		msg = "commandMyReward.\n\n";
-		msg += "*Hello*\n";
-		msg += "- fromId : " + fromId + "\n";
-		msg += "- cmd : " + cmd + "\n";
-		TelegramMsgSender.sendMsgToChannel(fromId, msg);
 	}
 
 	private void caseWatch(String fromId, String cmd) {
