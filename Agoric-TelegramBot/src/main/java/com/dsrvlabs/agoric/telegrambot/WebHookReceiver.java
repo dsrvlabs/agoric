@@ -99,6 +99,14 @@ public class WebHookReceiver extends HttpServlet {
 	}
 
 	private void commandMyReward_getReward(String fromId, String address) {
+		// DB insert
+		HashMap<String, String> params = new HashMap<String, String>();
+		params.put("fromId", fromId);
+		params.put("address", address);
+		CommonDao dao = new CommonDao();
+		int dbCount = dao.commonInsert("DbMapper.WebHookReceiver_commandMyReward_insertAddress", params);
+		
+		
 		PropertiesManager propertiesManager = new PropertiesManager(CONFIG_FILE);
 		String RPC_SERVER_URL = propertiesManager.getKey("RPC_SERVER_URL");
 		logger.debug(RPC_SERVER_URL);
@@ -178,11 +186,9 @@ public class WebHookReceiver extends HttpServlet {
 			msg = "What is you Agoric address?\n\n";
 			TelegramMsgSender.sendMsgToChannel(fromId, msg);
 		} else {
-
 			
-			msg = "Your Address is .\n\n";
-			msg += dbMap.get("address");
-			TelegramMsgSender.sendMsgToChannel(fromId, msg);
+			String address = dbMap.get("address").toString();
+			commandMyReward_getReward(fromId, address);
 		}
 		
 	}
