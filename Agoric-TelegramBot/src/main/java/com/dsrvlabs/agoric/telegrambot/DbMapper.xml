@@ -5,10 +5,16 @@
 <mapper namespace="DbMapper">
 
 
-	
-	<select id="TestSelect" resultType="java.util.HashMap" parameterType="java.util.HashMap">
+
+	<insert id="WebHookReceiver_commandMyReward_insertAddress" parameterType="java.util.HashMap">
 <![CDATA[
-select * from MemberList;
+INSERT INTO UserAddress (fromId, address) VALUES (#{fromId}, #{address}) ON DUPLICATE KEY UPDATE address=#{address}, updatedDate=now();
+]]>
+	</insert>
+	
+	<select id="WebHookReceiver_commandMyReward_getAddress" resultType="java.util.HashMap" parameterType="java.util.HashMap">
+<![CDATA[
+select * from UserAddress where fromId = #{fromId};
 ]]>
 	</select>
 
