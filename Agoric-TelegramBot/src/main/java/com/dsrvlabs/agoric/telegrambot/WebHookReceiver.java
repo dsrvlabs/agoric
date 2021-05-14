@@ -69,8 +69,9 @@ public class WebHookReceiver extends HttpServlet {
 			if( cmd.startsWith("agoric") && cmd.length() == 45) {	// is it agoric address?
 				commandMyReward_getReward(fromId, cmd);
 			} else {
-				commandMyReward(fromId, cmd);
-				
+				//commandMyReward(fromId, cmd);
+				userMap.get(fromId).put("menu", "start");
+				caseElse(fromId);
 			}
 			
 		} else {
@@ -153,11 +154,9 @@ public class WebHookReceiver extends HttpServlet {
 		System.out.println("### msg  : " + msg);
 		
 		// reset menu
-		userMap.get(fromId).put("menu", "start");	
-		
+		userMap.get(fromId).put("menu", "start");
 		TelegramMsgSender.sendMsgToChannel(fromId, msg);
-		
-		
+		caseElse(fromId);
 	}
 	
 
@@ -183,7 +182,7 @@ public class WebHookReceiver extends HttpServlet {
 		if( dbMap == null ) {
 			logger.debug("### dbMap == null : " + dbMap == null);
 			
-			msg = "What is you Agoric address?\n\n";
+			msg = "What is your Agoric address?\n\n";
 			TelegramMsgSender.sendMsgToChannel(fromId, msg);
 		} else {
 			
@@ -204,7 +203,8 @@ public class WebHookReceiver extends HttpServlet {
 
 	private void caseElse(String fromId) {
 		String msg;
-		msg = "Sorry. I did not understand your command. Please use the following commans.\n\n";
+		//msg = "Sorry. I did not understand your command. Please use the following commans.\n\n";
+		msg = "";
 		msg += "*Features*\n";
 		msg += "/start - Get help manual\n";
 		msg += "/help - Get help manual\n";
